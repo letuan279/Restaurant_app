@@ -1,0 +1,28 @@
+POST http://127.0.0.1:8000/api/add-restaurant
+Content-Type: application/json
+
+{
+    "name": "Hoa qua dam",
+    "description": "Ngoc ru di an thay binh thuong",
+    "address": "15 Le Thanh Nghi",
+    "image": "anh minh hoa"
+}
+
+###
+
+GET http://127.0.0.1:8000/api/get-restaurants
+
+###
+
+PUT http://127.0.0.1:8000/api/update-restaurant/1
+Content-Type: application/json
+
+{
+    "name": "Com rang dua bo",
+    "description": "Ngoc ru di an thay binh thuong",
+    "address": "Truoc cong tran dai nghia Bach Khoa",
+    "image": "anh minh hoa"
+}
+
+###
+DELETE http://127.0.0.1:8000/api/delete-restaurant/2
