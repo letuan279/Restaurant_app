@@ -40,7 +40,7 @@ class AuthController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $user = User::where('username', $username)->get();
+        $user = User::where('username', $username)->first();
 
         if(!$user){
             return response()->json([
@@ -49,8 +49,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $hashPassword = Hash::make($password);
-        if($hashPassword !== $user->password){
+        if(!Hash::check($password, $user['password'])){
             return response()->json([
                 'status' => 400,
                 'message' => "Incorrect username or password"

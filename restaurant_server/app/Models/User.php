@@ -14,11 +14,11 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
     ];
 
-    protected $hidden = [];
+    protected $hidden = ['password'];
 
     public function restaurants(){
         return $this->hasMany(Restaurant::class);
