@@ -13,10 +13,21 @@ POST http://127.0.0.1:8000/api/login
 Content-Type: application/json
 
 {
-    "name": "tuan",
     "username": "Adagaki123",
     "password": "1234"
 }
+
+###
+
+GET http://127.0.0.1:8000/api/user
+Accept: application/json
+Authorization: Bearer 7|4dA17IwfMv3ftWzr5vmxw2ZahebwjZujI8G2dn9t
+
+###
+
+GET http://127.0.0.1:8000/api/logout
+Accept: application/json
+Authorization: Bearer 6|hr8KbEU6SUcCGEhFHvmnPrVzu0ShijYgNS1PX5y7
 
 ###
 

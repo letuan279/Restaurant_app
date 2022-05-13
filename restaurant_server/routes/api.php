@@ -11,4 +11,9 @@ Route::put('/update-restaurant/{id}', [RestaurantController::class, 'update']);
 Route::delete('/delete-restaurant/{id}', [RestaurantController::class, 'destroy']);
 
 Route::post('/register', [AuthController::class, 'register']);  
-Route::post('/login', [AuthController::class, 'login']);  
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', [AuthController::class, 'user']);   
+    Route::get('/logout', [AuthController::class, 'logout']);
+});

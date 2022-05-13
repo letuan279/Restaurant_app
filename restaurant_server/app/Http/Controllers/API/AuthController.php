@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
@@ -37,30 +38,44 @@ class AuthController extends Controller
     }
 
     public function login(Request $request){
-        $username = $request->input('username');
-        $password = $request->input('password');
 
-        $user = User::where('username', $username)->first();
-
-        if(!$user){
+        if(!Auth::attempt($request->only('username', 'password'))){
             return response()->json([
                 'status' => 400,
                 'message' => "Incorrect username or password"
             ]);
         }
 
-        if(!Hash::check($password, $user['password'])){
-            return response()->json([
-                'status' => 400,
-                'message' => "Incorrect username or password"
-            ]);
-        }
+        /** @var \App\Models\User */
+        $user = Auth::user();
 
+        $token = $user->createToken('token')->plainTextToken;
+
+        $cookie = cookie('jwt', $token, 1); // 1 day
+        
         return response()->json([
             'status' => 200,
             'message' => "Login successfully",
+            'token' => $token,
             'user' => $user
+        ])->withCookie($cookie);
+    }
+
+    public function logout(Request $request)
+    {
+        $cookie = Cookie::forget('jwt');
+
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => "Logout successfully",
         ]);
+    }
+
+    public function user()
+    {
+        return Auth::user();
     }
 
 }
