@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "name": "tuan le",
-    "username": "Adagaki123",
+    "username": "Adagaki456",
     "password": "1234"
 }
 
@@ -13,25 +13,45 @@ POST http://127.0.0.1:8000/api/login
 Content-Type: application/json
 
 {
-    "username": "Adagaki123",
+    "username": "Adagaki456",
     "password": "1234"
 }
 
 ###
 
-GET http://127.0.0.1:8000/api/user
+GET http://127.0.0.1:8000/api/
 Accept: application/json
-Authorization: Bearer 7|4dA17IwfMv3ftWzr5vmxw2ZahebwjZujI8G2dn9t
+Authorization: Bearer 4|h4OEGfTpA8GNGoq7b4Pwt6RMQwTgPaJiXxFNX4O8
 
 ###
 
 GET http://127.0.0.1:8000/api/logout
 Accept: application/json
-Authorization: Bearer 6|hr8KbEU6SUcCGEhFHvmnPrVzu0ShijYgNS1PX5y7
+Authorization: Bearer 4|h4OEGfTpA8GNGoq7b4Pwt6RMQwTgPaJiXxFNX4O8
+
 
 ###
 
 GET http://127.0.0.1:8000/api/get-restaurants
+Accept: application/json
+Authorization: Bearer 4|h4OEGfTpA8GNGoq7b4Pwt6RMQwTgPaJiXxFNX4O8
+
+###
+GET http://127.0.0.1:8000/api/get-restaurant
+Accept: application/json
+Authorization: Bearer 4|h4OEGfTpA8GNGoq7b4Pwt6RMQwTgPaJiXxFNX4O8
+###
+
+POST http://127.0.0.1:8000/api/add-restaurant
+Content-Type: : application/json
+Authorization: Bearer 3|g7TguRduQIrBiQzxSS3M9vZRtRfDfepCLeMKeKyP
+
+{
+    "name": "banh trang tron 2",
+    "description": "ngon lam!",
+    "address": "gan truong C3",
+    "image": "image"
+}
 
 ###
 

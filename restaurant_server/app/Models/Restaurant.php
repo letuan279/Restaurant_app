@@ -15,8 +15,5 @@ class Restaurant extends Model
         'address',
         'image',
     ];
-
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
+    protected $hidden = ['user_id'];
 }

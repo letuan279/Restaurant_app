@@ -73,9 +73,12 @@ class AuthController extends Controller
         ]);
     }
 
-    public function user()
+    public function checkUser()
     {
-        return Auth::user();
+        return response()->json([
+            'status' => 200,
+            'message' => 'User Authenticated'
+        ]);
     }
 
 }

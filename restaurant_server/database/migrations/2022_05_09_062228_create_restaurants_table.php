@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,12 +15,13 @@ class CreateRestaurantsTable extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('name');
             $table->text('description');
             $table->string('address');
             $table->string('image');
             $table->timestamps();
-            $table->foreignIdFor(User::class);
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
