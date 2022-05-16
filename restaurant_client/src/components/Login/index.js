@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Login = () => {
   const [loginForm, setLoginForm] = useState({
@@ -7,11 +8,26 @@ const Login = () => {
     password: "",
   });
 
-  //   console.log("hehe");
-  const handleLoginForm = (event) => {
+  const { loginUser } = useContext(AuthContext);
+
+  const handleLoginForm = async (event) => {
     event.preventDefault();
 
-    console.log(loginForm);
+    //validate
+    if (!loginForm.username || !loginForm.password) {
+      alert("Incorrect username or password");
+      return;
+    }
+
+    try {
+      const loginData = await loginUser(loginForm);
+      // console.log(loginData);
+      if (loginData.status !== 200) {
+        alert(loginData.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
