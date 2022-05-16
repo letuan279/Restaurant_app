@@ -51,7 +51,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('token')->plainTextToken;
 
-        $cookie = cookie('jwt', $token, 1); // 1 day
+        $cookie = cookie('jwt', $token, 60 * 24); // 1 day
         
         return response()->json([
             'status' => 200,
@@ -73,11 +73,12 @@ class AuthController extends Controller
         ]);
     }
 
-    public function checkUser()
+    public function checkUser(Request $request)
     {
         return response()->json([
             'status' => 200,
-            'message' => 'User Authenticated'
+            'message' => 'User Authenticated',
+            'user' => $request->user()
         ]);
     }
 

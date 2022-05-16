@@ -21,6 +21,7 @@ class RestaurantController extends Controller
 
     public function getRestaurants(){
         $restaurants = Restaurant::all();
+        if(!$restaurants) $restaurants = []; 
         return response()->json([
             'status' => 200,
             'restaurants' => $restaurants,
@@ -29,12 +30,14 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
+        $upload_file = $request->file('image')->store('images');
+
         $restaurant = new Restaurant;
         $restaurant->user_id = $request->user()->getId();
         $restaurant->name = $request->input('name');
         $restaurant->description = $request->input('description');
         $restaurant->address = $request->input('address');
-        $restaurant->image = $request->input('image');
+        $restaurant->image = $upload_file;
         $restaurant->save();
 
         return response()->json([

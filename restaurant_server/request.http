@@ -19,32 +19,32 @@ Content-Type: application/json
 
 ###
 
-GET http://127.0.0.1:8000/api/
+GET http://127.0.0.1:8000/api/auth
 Accept: application/json
-Authorization: Bearer 4|h4OEGfTpA8GNGoq7b4Pwt6RMQwTgPaJiXxFNX4O8
+Authorization: 6|ck8ykmVqXAS7a2CN2wJqgGnoT1MqzXmXbcNlj8Sh
 
 ###
 
 GET http://127.0.0.1:8000/api/logout
 Accept: application/json
-Authorization: Bearer 4|h4OEGfTpA8GNGoq7b4Pwt6RMQwTgPaJiXxFNX4O8
+Authorization: 6|ck8ykmVqXAS7a2CN2wJqgGnoT1MqzXmXbcNlj8Sh
 
 
 ###
 
 GET http://127.0.0.1:8000/api/get-restaurants
 Accept: application/json
-Authorization: Bearer 4|h4OEGfTpA8GNGoq7b4Pwt6RMQwTgPaJiXxFNX4O8
+Authorization: 1|BT4nRrBlh72uuRD29My8NeOXHpHOV6bLHEfb0xU9
 
 ###
 GET http://127.0.0.1:8000/api/get-restaurant
 Accept: application/json
-Authorization: Bearer 4|h4OEGfTpA8GNGoq7b4Pwt6RMQwTgPaJiXxFNX4O8
+Authorization: 1|BT4nRrBlh72uuRD29My8NeOXHpHOV6bLHEfb0xU9
 ###
 
 POST http://127.0.0.1:8000/api/add-restaurant
 Content-Type: : application/json
-Authorization: Bearer 3|g7TguRduQIrBiQzxSS3M9vZRtRfDfepCLeMKeKyP
+Authorization: 5|yNGnRoCGGUQWXm5cmNcmaePe8ieHXaPvLWkGvkL4
 
 {
     "name": "banh trang tron 2",

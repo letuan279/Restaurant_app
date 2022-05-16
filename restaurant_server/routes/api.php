@@ -9,7 +9,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/', [AuthController::class, 'checkUser']);   
+    Route::get('/auth', [AuthController::class, 'checkUser']);   
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/get-restaurant', [RestaurantController::class, 'getRestaurant']);
     Route::get('/get-restaurants', [RestaurantController::class, 'getRestaurants']);
