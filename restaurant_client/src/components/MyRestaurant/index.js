@@ -4,15 +4,17 @@ import Restaurant from "../Restaurant";
 import { RestaurantContext } from "../../contexts/RestaurantContext";
 import ShowDetailModal from "../ShowDetailModal";
 import EditModal from "../EditModal";
+import AddModal from "../AddModal";
 
 const MyRestaurant = () => {
   const {
-    myRestaurants,
+    restaurantState: { restaurantList },
     getMyRestaurants,
     deleteRestaurant,
     setRestaurantSelected,
     setIsShowEditModal,
     restaurantSelected,
+    setIsAddModal,
   } = useContext(RestaurantContext);
 
   useEffect(getMyRestaurants, []);
@@ -22,12 +24,16 @@ const MyRestaurant = () => {
     setIsShowEditModal(true);
   };
 
+  const handleAdd = () => {
+    setIsAddModal(true);
+  };
+
   return (
     <>
       <NavBar />
       <div className="flex flex-wrap">
-        {myRestaurants &&
-          myRestaurants.map((res, idx) => (
+        {restaurantList &&
+          restaurantList.map((res, idx) => (
             <div key={res.id} className="mt-4 p-8">
               <Restaurant
                 idx={idx}
@@ -43,6 +49,10 @@ const MyRestaurant = () => {
       </div>
       {restaurantSelected && <ShowDetailModal />}
       {restaurantSelected && <EditModal data={restaurantSelected} />}
+      <AddModal />
+      <button className="fixed bottom-5 right-5" onClick={handleAdd}>
+        create
+      </button>
     </>
   );
 };

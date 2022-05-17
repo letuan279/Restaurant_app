@@ -5,16 +5,21 @@ import { RestaurantContext } from "../../contexts/RestaurantContext";
 import ShowDetailModal from "../ShowDetailModal";
 
 const Home = () => {
-  const { restaurants, getRestaurants } = useContext(RestaurantContext);
+  const {
+    restaurantState: { restaurantList },
+    getRestaurants,
+  } = useContext(RestaurantContext);
 
   useEffect(getRestaurants, []);
+
+  // console.log(restaurantList);
 
   return (
     <>
       <NavBar />
       <div className="flex flex-wrap">
-        {restaurants &&
-          restaurants.map((res, idx) => (
+        {restaurantList &&
+          restaurantList.map((res, idx) => (
             <div className="mt-4 p-8" key={idx}>
               <Restaurant
                 idx={idx}

@@ -1,15 +1,22 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useReducer } from "react";
 import { apiURL } from "./constants";
 import axios from "axios";
+import { RestaurantReducer } from "../reducer/RestaurantReducer";
 
 export const RestaurantContext = createContext();
 
 const RestaurantContextProvider = ({ children }) => {
-  const [restaurants, setRestaurants] = useState([]);
-  const [myRestaurants, setMyRestaurants] = useState([]);
+  const [restaurantState, dispatch] = useReducer(RestaurantReducer, {
+    restaurantLoading: true,
+    restaurantList: [],
+  });
+
+  // console.log(restaurantState);
+
   const [isShowDetailModal, setIsShowDetailModal] = useState(false);
   const [isShowAddModal, setIsShowAddModal] = useState(false);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
+  const [isAddModal, setIsAddModal] = useState(false);
   const [restaurantSelected, setRestaurantSelected] = useState(null);
 
   const getRestaurants = async () => {
@@ -17,11 +24,15 @@ const RestaurantContextProvider = ({ children }) => {
       const response = await axios.get(`${apiURL}/get-restaurants`);
       // console.log(response.data);
       if (response.data.status === 200) {
-        // console.log(response.data.restaurants);
-        setRestaurants(response.data.restaurants);
+        dispatch({
+          type: "GET_RESTAURANT_SUCCESS",
+          payload: response.data.restaurants,
+        });
       } else alert(response.data);
     } catch (e) {
-      alert(e);
+      dispatch({
+        type: "GET_RESTAURANT_FAIL",
+      });
     }
   };
 
@@ -30,8 +41,27 @@ const RestaurantContextProvider = ({ children }) => {
       const response = await axios.get(`${apiURL}/get-restaurant`);
       // console.log(response.data);
       if (response.data.status === 200) {
-        // console.log(response.data.restaurants);
-        setMyRestaurants(response.data.restaurants);
+        dispatch({
+          type: "GET_RESTAURANT_SUCCESS",
+          payload: response.data.restaurants,
+        });
+      } else alert(response.data);
+    } catch (e) {
+      dispatch({
+        type: "GET_RESTAURANT_FAIL",
+      });
+    }
+  };
+
+  const addRestaurant = async (formData) => {
+    try {
+      const response = await axios.post(`${apiURL}/add-restaurant`, formData);
+      if (response.data.status === 200) {
+        const newRestaurant = response.data.restaurant;
+        dispatch({
+          type: "CREATED_NEW_RESTAURANT",
+          payload: newRestaurant,
+        });
       } else alert(response.data);
     } catch (e) {
       alert(e);
@@ -48,11 +78,10 @@ const RestaurantContextProvider = ({ children }) => {
       if (response.data.status === 200) {
         // console.log(response.data.restaurant);
         const newRestaurant = response.data.restaurant;
-        setMyRestaurants(
-          myRestaurants.filter((r, i) =>
-            r.id === newRestaurant.id ? newRestaurant : r
-          )
-        );
+        dispatch({
+          type: "UPDATE_RESTAURANT",
+          payload: newRestaurant,
+        });
       } else alert(response.data);
     } catch (e) {
       alert(e);
@@ -66,21 +95,20 @@ const RestaurantContextProvider = ({ children }) => {
       );
       // console.log(response.data);
       alert(response.data.message);
-      setMyRestaurants(
-        myRestaurants.filter((restaurant, index) => index !== idx)
-      );
+      dispatch({
+        type: "DELETE_RESTAURANT",
+        payload: response.data.restaurant,
+      });
     } catch (e) {
       alert(e);
     }
   };
 
   const contextData = {
-    getRestaurants,
     getMyRestaurants,
-    restaurants,
-    myRestaurants,
-    setMyRestaurants,
-    setRestaurants,
+    getRestaurants,
+    restaurantState,
+    dispatch,
     updateRestaurant,
     deleteRestaurant,
     isShowDetailModal,
@@ -91,6 +119,9 @@ const RestaurantContextProvider = ({ children }) => {
     setIsShowEditModal,
     restaurantSelected,
     setRestaurantSelected,
+    isAddModal,
+    setIsAddModal,
+    addRestaurant,
   };
 
   return (
