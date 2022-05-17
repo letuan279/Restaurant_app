@@ -1,40 +1,32 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { apiURL } from "../../contexts/constants";
+import { useEffect, useContext } from "react";
 import NavBar from "../NavBar";
 import Restaurant from "../Restaurant";
+import { RestaurantContext } from "../../contexts/RestaurantContext";
+import ShowDetailModal from "../ShowDetailModal";
 
 const Home = () => {
-  const [allRestaurants, setAllRestaurants] = useState([]);
+  const { restaurants, getRestaurants } = useContext(RestaurantContext);
 
-  useEffect(async () => {
-    try {
-      const response = await axios.get(`${apiURL}/get-restaurants`);
-      // console.log(response.data);
-      if (response.data.status === 200) {
-        // console.log(response.data.restaurants);
-        setAllRestaurants(response.data.restaurants);
-      } else alert(response.data);
-    } catch (e) {
-      alert(e);
-    }
-  }, []);
+  useEffect(getRestaurants, []);
 
   return (
     <>
       <NavBar />
-      {allRestaurants &&
-        allRestaurants.map((res, idx) => (
-          <div key={idx}>
-            <Restaurant
-              idx={idx}
-              name={res.name}
-              description={res.description}
-              address={res.address}
-              image={res.image}
-            />
-          </div>
-        ))}
+      <div className="flex flex-wrap">
+        {restaurants &&
+          restaurants.map((res, idx) => (
+            <div className="mt-4 p-8" key={idx}>
+              <Restaurant
+                idx={idx}
+                name={res.name}
+                description={res.description}
+                address={res.address}
+                image={res.image}
+              />
+            </div>
+          ))}
+      </div>
+      <ShowDetailModal />
     </>
   );
 };

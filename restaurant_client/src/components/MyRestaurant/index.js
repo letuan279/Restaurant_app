@@ -1,69 +1,48 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { apiURL } from "../../contexts/constants";
+import { useContext, useEffect, useState } from "react";
 import NavBar from "../NavBar";
 import Restaurant from "../Restaurant";
-import useModal from "../../custom/useModal";
-import Modal from "../Modal";
+import { RestaurantContext } from "../../contexts/RestaurantContext";
+import ShowDetailModal from "../ShowDetailModal";
+import EditModal from "../EditModal";
 
 const MyRestaurant = () => {
-  const [allRestaurant, setAllRestaurant] = useState([]);
+  const {
+    myRestaurants,
+    getMyRestaurants,
+    deleteRestaurant,
+    setRestaurantSelected,
+    setIsShowEditModal,
+    restaurantSelected,
+  } = useContext(RestaurantContext);
 
-  const { isShowing, toggle } = useModal();
+  useEffect(getMyRestaurants, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`${apiURL}/get-restaurant`);
-        // console.log(response.data);
-        if (response.data.status === 200) {
-          // console.log(response.data.restaurants);
-          setAllRestaurant(response.data.restaurants);
-        } else alert(response.data);
-      } catch (e) {
-        alert(e);
-      }
-    }
-    fetchData();
-  }, []);
-
-  const handleEdit = async (restaurantId, idx) => {
-    toggle();
-  };
-
-  const handleDelete = async (restaurantId, idx) => {
-    try {
-      const response = await axios.delete(
-        `${apiURL}/delete-restaurant/${restaurantId}`
-      );
-      // console.log(response.data);
-      alert(response.data.message);
-      setAllRestaurant(
-        allRestaurant.filter((restaurant, index) => index !== idx)
-      );
-    } catch (e) {
-      alert(e);
-    }
+  const handleEdit = (res) => {
+    setRestaurantSelected(res);
+    setIsShowEditModal(true);
   };
 
   return (
     <>
       <NavBar />
-      {allRestaurant &&
-        allRestaurant.map((res, idx) => (
-          <div key={res.id}>
-            <Restaurant
-              idx={idx}
-              name={res.name}
-              description={res.description}
-              address={res.address}
-              image={res.image}
-            />
-            <button onClick={() => handleEdit(res.id, idx)}>🔧</button>
-            <Modal isShowing={isShowing} hide={toggle} />
-            <button onClick={() => handleDelete(res.id, idx)}>🗑️</button>
-          </div>
-        ))}
+      <div className="flex flex-wrap">
+        {myRestaurants &&
+          myRestaurants.map((res, idx) => (
+            <div key={res.id} className="mt-4 p-8">
+              <Restaurant
+                idx={idx}
+                name={res.name}
+                description={res.description}
+                address={res.address}
+                image={res.image}
+              />
+              <button onClick={() => handleEdit(res)}>🔧</button>
+              <button onClick={() => deleteRestaurant(res.id, idx)}>🗑️</button>
+            </div>
+          ))}
+      </div>
+      {restaurantSelected && <ShowDetailModal />}
+      {restaurantSelected && <EditModal data={restaurantSelected} />}
     </>
   );
 };

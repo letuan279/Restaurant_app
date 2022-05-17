@@ -7,23 +7,26 @@ import RequireAuth from "./components/RequireAuth";
 import Home from "./components/Home";
 import MyRestaurant from "./components/MyRestaurant";
 import "./App.css";
+import RestaurantContextProvider from "./contexts/RestaurantContext";
 
 function App() {
   return (
     <AuthContextProvider>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Auth />}>
-            <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Route>
-          <Route element={<RequireAuth />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/restaurant" element={<MyRestaurant />} />
-          </Route>
-        </Routes>
-      </div>
+      <RestaurantContextProvider>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Auth />}>
+              <Route path="/" element={<Navigate to="/login" />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Route>
+            <Route element={<RequireAuth />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/restaurant" element={<MyRestaurant />} />
+            </Route>
+          </Routes>
+        </div>
+      </RestaurantContextProvider>
     </AuthContextProvider>
   );
 }
