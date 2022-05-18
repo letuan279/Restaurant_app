@@ -19,6 +19,16 @@ const RestaurantContextProvider = ({ children }) => {
   const [isAddModal, setIsAddModal] = useState(false);
   const [restaurantSelected, setRestaurantSelected] = useState(null);
 
+  const getNickNameByResId = async (res_id) => {
+    try {
+      const response = await axios.get(`${apiURL}/name/${res_id}`);
+      // console.log(response.data);
+      return response.data;
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   const getRestaurants = async () => {
     try {
       const response = await axios.get(`${apiURL}/get-restaurants`);
@@ -70,7 +80,7 @@ const RestaurantContextProvider = ({ children }) => {
 
   const updateRestaurant = async (id, formUpdate) => {
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `${apiURL}/update-restaurant/${id}`,
         formUpdate
       );
@@ -122,6 +132,7 @@ const RestaurantContextProvider = ({ children }) => {
     isAddModal,
     setIsAddModal,
     addRestaurant,
+    getNickNameByResId,
   };
 
   return (

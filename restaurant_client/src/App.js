@@ -13,7 +13,7 @@ function App() {
   return (
     <AuthContextProvider>
       <RestaurantContextProvider>
-        <div className="App">
+        <div className="w-screen h-screen bg-white">
           <Routes>
             <Route path="/" element={<Auth />}>
               <Route path="/" element={<Navigate to="/login" />} />
@@ -23,7 +23,9 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="/home" element={<Home />} />
               <Route path="/restaurant" element={<MyRestaurant />} />
+              <Route path="*" element={<Navigate to="/home" />} />
             </Route>
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </div>
       </RestaurantContextProvider>

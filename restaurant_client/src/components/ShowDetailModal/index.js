@@ -2,11 +2,14 @@ import { useContext } from "react";
 import ReactDOM from "react-dom";
 import { RestaurantContext } from "../../contexts/RestaurantContext";
 import "../Modal/index.css";
-import srcImage from "../../../src/300px-Golden_tabby_and_white_kitten_n01.jpg";
+import { GoLocation } from "react-icons/go";
+import srcImage from "../../../src/images/index.jpeg";
 
 const ShowDetailModal = () => {
   const { isShowDetailModal, setIsShowDetailModal, restaurantSelected } =
     useContext(RestaurantContext);
+
+  // console.log(restaurantSelected);
 
   return isShowDetailModal
     ? ReactDOM.createPortal(
@@ -19,7 +22,7 @@ const ShowDetailModal = () => {
             tabIndex={-1}
             role="dialog"
           >
-            <div className="modal">
+            <div className="modal max-w-[1200px]">
               <div className="modal-header">
                 <button
                   type="button"
@@ -31,20 +34,21 @@ const ShowDetailModal = () => {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="flex flex-col items-center bg-white rounded-lg border shadow-md hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+              <div className="flex items-center bg-white rounded-lg border shadow-md object-cover">
                 <img
                   className="object-cover w-full h-96 rounded-t-lg"
-                  src={srcImage}
+                  src={`http://127.0.0.1:8000/${restaurantSelected.image}`}
                   alt=""
                 />
-                <div className="flex flex-col justify-between p-4 leading-normal">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tigt text-gray-900 dark:text-white">
+                <div className="w-[450px] flex flex-col p-4 leading-normal break-all ">
+                  <h5 className="mb-2 text-2xl tracking-tigt text-gray-900 font-bold">
                     {restaurantSelected.name}
                   </h5>
-                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  <p className="mb-3 font-normal text-gray-500 text-base">
                     {restaurantSelected.description}
                   </p>
-                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  <p className="font-normal text-gray-600 flex gap-3">
+                    <GoLocation size={"25px"} color="red" />{" "}
                     {restaurantSelected.address}
                   </p>
                 </div>

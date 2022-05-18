@@ -12,21 +12,20 @@ const Home = () => {
 
   useEffect(getRestaurants, []);
 
-  // console.log(restaurantList);
-
   return (
     <>
       <NavBar />
       <div className="flex flex-wrap">
         {restaurantList &&
           restaurantList.map((res, idx) => (
-            <div className="mt-4 p-8" key={idx}>
+            <div className="mt-4 p-6" key={idx}>
               <Restaurant
                 idx={idx}
                 name={res.name}
                 description={res.description}
                 address={res.address}
                 image={res.image}
+                id={res.id}
               />
             </div>
           ))}

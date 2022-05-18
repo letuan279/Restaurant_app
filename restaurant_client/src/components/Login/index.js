@@ -31,32 +31,55 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form className="auth-form">
-        <input
-          value={loginForm.username}
-          type="text"
-          name="username"
-          placeholder="Username..."
-          onChange={(e) =>
-            setLoginForm({ ...loginForm, username: e.target.value })
-          }
-        />
-        <input
-          value={loginForm.password}
-          type="password"
-          name="password"
-          placeholder="Password..."
-          onChange={(e) =>
-            setLoginForm({ ...loginForm, password: e.target.value })
-          }
-        />
-        <button onClick={handleLoginForm}>Login</button>
-        <Link to="/register">
-          <button>Create a new account!</button>
-        </Link>
-      </form>
+    <div className="h-screen bg-gray-100 flex justify-center">
+      <div className="py-6 px-8 h-80 mt-40 bg-white rounded shadow-xl">
+        <form action="">
+          <div className="mb-6">
+            <label htmlFor="username" className="block text-gray-800 font-bold">
+              Username:
+            </label>
+            <input
+              value={loginForm.username}
+              type="text"
+              name="username"
+              id="username"
+              placeholder="username"
+              className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600"
+              onChange={(e) =>
+                setLoginForm({ ...loginForm, username: e.target.value })
+              }
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-gray-800 font-bold">
+              Password:
+            </label>
+            <input
+              value={loginForm.password}
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password"
+              className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600"
+              onChange={(e) =>
+                setLoginForm({ ...loginForm, password: e.target.value })
+              }
+            />
+          </div>
+          <button
+            onClick={handleLoginForm}
+            className="hover:bg-indigo-400 cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded"
+          >
+            Login
+          </button>
+          <Link to="/register">
+            <button className="hover:text-blue-400">
+              Create a new account!
+            </button>
+          </Link>
+        </form>
+      </div>
     </div>
   );
 };

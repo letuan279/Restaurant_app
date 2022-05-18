@@ -6,11 +6,12 @@ const EditModal = ({ data }) => {
   const { isShowEditModal, setIsShowEditModal, updateRestaurant } =
     useContext(RestaurantContext);
 
+  const [file, setFile] = useState(null);
+
   const [editData, setEditData] = useState({
     name: data.name,
     description: data.description,
     address: data.address,
-    image: data.image,
   });
 
   useEffect(() => setEditData(data), [data]);
@@ -18,7 +19,13 @@ const EditModal = ({ data }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    updateRestaurant(data.id, editData);
+    const formData = new FormData();
+    formData.append("name", editData.name);
+    formData.append("description", editData.description);
+    formData.append("address", editData.address);
+    formData.append("image", file);
+
+    updateRestaurant(data.id, formData);
 
     setIsShowEditModal(false);
   };
@@ -72,7 +79,7 @@ const EditModal = ({ data }) => {
                   >
                     Description
                   </label>
-                  <input
+                  <textarea
                     value={editData.description}
                     onChange={(e) =>
                       setEditData({ ...editData, description: e.target.value })
@@ -101,40 +108,19 @@ const EditModal = ({ data }) => {
                     required
                   />
                 </div>
-                {/* <label
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        htmlFor="image"
-      >
-        Upload Image
-      </label>
-      <input
-        value={}
-        onChange={(e)=> setEditData()}
-        className="mb-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        aria-describedby="user_avatar_help"
-        type="file"
-        id="image"
-      ></input
-        value={}
-        onChange={(e)=> setEditData()}> */}
-                <div className="mb-6">
-                  <label
-                    htmlFor="image"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Image
-                  </label>
-                  <input
-                    value={editData.image}
-                    onChange={(e) =>
-                      setEditData({ ...editData, image: e.target.value })
-                    }
-                    type="text"
-                    id="image"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    required
-                  />
-                </div>
+                <label
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  htmlFor="image"
+                >
+                  Upload Image
+                </label>
+                <input
+                  onChange={(e) => setFile(e.target.files[0])}
+                  className="mb-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  aria-describedby="user_avatar_help"
+                  type="file"
+                  id="image"
+                />
                 <button
                   onClick={handleUpdate}
                   className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"

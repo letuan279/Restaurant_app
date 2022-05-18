@@ -27,8 +27,9 @@
   position: relative;
   margin: 1.75rem auto;
   border-radius: 3px;
-  max-width: 500px;
   padding: 2rem;
+  max-width: 900px;
+  min-width: 650px;
 }
 
 .modal-header {
