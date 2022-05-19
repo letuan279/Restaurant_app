@@ -8,12 +8,13 @@ import Home from "./components/Home";
 import MyRestaurant from "./components/MyRestaurant";
 import "./App.css";
 import RestaurantContextProvider from "./contexts/RestaurantContext";
+import bg from "./images/cooking-banner-g3900c3ee1_1920.jpg";
 
 function App() {
   return (
     <AuthContextProvider>
       <RestaurantContextProvider>
-        <div className="w-screen h-screen bg-white">
+        <div className="App">
           <Routes>
             <Route path="/" element={<Auth />}>
               <Route path="/" element={<Navigate to="/login" />} />

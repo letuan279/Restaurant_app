@@ -12,10 +12,12 @@ const Home = () => {
 
   useEffect(getRestaurants, []);
 
+  // console.log(restaurantList);
+
   return (
     <>
       <NavBar />
-      <div className="flex flex-wrap">
+      <div className="grid grid-cols-4 px-7">
         {restaurantList &&
           restaurantList.map((res, idx) => (
             <div className="mt-4 p-6" key={idx}>
@@ -26,6 +28,7 @@ const Home = () => {
                 address={res.address}
                 image={res.image}
                 id={res.id}
+                userId={res.user_id}
               />
             </div>
           ))}

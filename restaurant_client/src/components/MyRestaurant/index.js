@@ -6,6 +6,8 @@ import ShowDetailModal from "../ShowDetailModal";
 import EditModal from "../EditModal";
 import AddModal from "../AddModal";
 import { GrChapterAdd } from "react-icons/gr";
+import { BiWrench } from "react-icons/bi";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const MyRestaurant = () => {
   const {
@@ -32,7 +34,7 @@ const MyRestaurant = () => {
   return (
     <>
       <NavBar />
-      <div className="flex flex-wrap">
+      <div className="grid grid-cols-4 px-7">
         {restaurantList &&
           restaurantList.map((res, idx) => (
             <div key={res.id} className="mt-4 p-8">
@@ -43,19 +45,20 @@ const MyRestaurant = () => {
                 address={res.address}
                 image={res.image}
                 id={res.id}
+                userId={res.user_id}
               />
               <div className="flex justify-between">
                 <button
-                  className="p-2 shadow-xl text-center text-2xl text-white bg-green-400 rounded-b-lg hover:bg-green-300 "
+                  className="-translate-y-12 translate-x-[25px] p-2 shadow-xl text-center text-2xl text-white bg-green-400 rounded-lg hover:bg-green-300 "
                   onClick={() => handleEdit(res)}
                 >
-                  Edit
+                  <BiWrench />
                 </button>
                 <button
-                  className="p-2 shadow-xl text-center text-2xl text-white bg-red-400 rounded-b-lg hover:bg-red-300"
+                  className="-translate-y-12 p-2 -translate-x-[50px] shadow-xl text-center text-2xl text-white bg-red-400 rounded-lg hover:bg-red-300"
                   onClick={() => deleteRestaurant(res.id, idx)}
                 >
-                  Delete
+                  <FaRegTrashAlt />
                 </button>
               </div>
             </div>
@@ -65,7 +68,7 @@ const MyRestaurant = () => {
       {restaurantSelected && <EditModal data={restaurantSelected} />}
       <AddModal />
       <button
-        className="fixed bottom-20 right-20 text-6xl p-4 border rounded-full shadow-md"
+        className="fixed bottom-20 right-20 text-5xl p-4 border rounded-full shadow-md"
         onClick={handleAdd}
       >
         <GrChapterAdd />

@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { RestaurantContext } from "../../contexts/RestaurantContext";
 import "../Modal/index.css";
 import { GoLocation } from "react-icons/go";
-import srcImage from "../../../src/images/index.jpeg";
 
 const ShowDetailModal = () => {
   const { isShowDetailModal, setIsShowDetailModal, restaurantSelected } =
@@ -40,7 +39,7 @@ const ShowDetailModal = () => {
                   src={`http://127.0.0.1:8000/${restaurantSelected.image}`}
                   alt=""
                 />
-                <div className="w-[450px] flex flex-col p-4 leading-normal break-all ">
+                <div className="w-[450px] flex flex-col p-4 leading-normal break-words ">
                   <h5 className="mb-2 text-2xl tracking-tigt text-gray-900 font-bold">
                     {restaurantSelected.name}
                   </h5>

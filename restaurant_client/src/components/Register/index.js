@@ -50,7 +50,7 @@ const Register = () => {
               type="text"
               name="name"
               id="name"
-              placeholder="username"
+              placeholder="name"
               className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600"
               onChange={(e) =>
                 setRegisterForm({ ...RegisterForm, name: e.target.value })
