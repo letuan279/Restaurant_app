@@ -44,7 +44,7 @@ Authorization: 1|BT4nRrBlh72uuRD29My8NeOXHpHOV6bLHEfb0xU9
 
 POST http://127.0.0.1:8000/api/add-restaurant
 Content-Type: : application/json
-Authorization: 5|yNGnRoCGGUQWXm5cmNcmaePe8ieHXaPvLWkGvkL4
+Authorization: 14|zlt4aNQ6O74fAyzRVTxvl2pPo7bA2fztMPJEr5L4
 
 {
     "name": "banh trang tron 2",

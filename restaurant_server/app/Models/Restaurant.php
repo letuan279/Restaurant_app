@@ -15,5 +15,5 @@ class Restaurant extends Model
         'address',
         'image',
     ];
-    protected $hidden = ['user_id'];
+    // protected $hidden = ['user_id'];
 }

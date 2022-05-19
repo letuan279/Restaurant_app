@@ -4,11 +4,20 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
+    public function getNickNameByResId($id){
+        $restaurant = Restaurant::find($id);
+        if(!$restaurant) return response()->json(['name' => "not found 1"]);
+        $user = User::find($restaurant->user_id);
+        if($user) return response()->json(['name' => $user->name]);
+        return response()->json(['name' => "not found 2"]);
+    }
+
     public function getRestaurant(Request $request) {
         $restaurants = Restaurant::where('user_id', $request->user()->getId())->get();
 
@@ -37,6 +46,7 @@ class RestaurantController extends Controller
         $restaurant->name = $request->input('name');
         $restaurant->description = $request->input('description');
         $restaurant->address = $request->input('address');
+        $restaurant->image = $request->input('image');
         $restaurant->image = $upload_file;
         $restaurant->save();
 
@@ -57,10 +67,15 @@ class RestaurantController extends Controller
                 ]);
             }
 
+            // Store new image
+            $upload_file = $request->file('image')->store('images');
+            // Delete previous image
+            Storage::delete($restaurant->image);
+
             $restaurant->name = $request->input('name');
             $restaurant->description = $request->input('description');
             $restaurant->address = $request->input('address');
-            $restaurant->image = $request->input('image');
+            $restaurant->image = $upload_file;
             $restaurant->update();
 
             return response()->json([
@@ -87,6 +102,9 @@ class RestaurantController extends Controller
                     'message' => "Unauthorized"
                 ]);
             }
+
+            // delete odd image
+            Storage::delete($restaurant->image);
 
             $restaurant->delete();
 

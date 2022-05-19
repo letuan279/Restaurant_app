@@ -81,5 +81,4 @@ class AuthController extends Controller
             'user' => $request->user()
         ]);
     }
-
 }

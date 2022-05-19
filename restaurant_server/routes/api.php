@@ -14,6 +14,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/get-restaurant', [RestaurantController::class, 'getRestaurant']);
     Route::get('/get-restaurants', [RestaurantController::class, 'getRestaurants']);
     Route::post('/add-restaurant', [RestaurantController::class, 'store']);
-    Route::put('/update-restaurant/{id}', [RestaurantController::class, 'update']);
+    Route::post('/update-restaurant/{id}', [RestaurantController::class, 'update']);
     Route::delete('/delete-restaurant/{id}', [RestaurantController::class, 'destroy']);
+    Route::get('/name/{id}', [RestaurantController::class, 'getNickNameByResId']);
 });
